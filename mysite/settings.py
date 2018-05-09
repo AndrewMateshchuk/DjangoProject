@@ -26,6 +26,7 @@ SECRET_KEY = 'mh2kd5ywt&n21vv!s8ea0d%uect(+vsg0mfsz(o--lw@m(+0)b'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'mateshchuk.pythonanywhere.com'
 ]
 
 
