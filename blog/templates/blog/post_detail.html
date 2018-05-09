@@ -1,13 +1,11 @@
 {% extends 'blog/base.html' %}
     {% block content %}
         <div>
-            <h2 style="color:darkslategray">Posts</h2>
+            <h2 style="color:darkslategray">Title: {{ post.title }}</h2>
         </div>   
         <div>
-            {% for post in posts%}
                 <p><i>Published: {{ post.created_date }}</i></p>
-                <h4><a href="{% url 'post_detail' pk=post.pk %}">Title: {{ post.title }}</a></h4>
                 <p>{{ post.text|linebreaksbr }}</p>
-            {% endfor %}
         </div>
+        <a href="/">Back</a>
     {% endblock %}
