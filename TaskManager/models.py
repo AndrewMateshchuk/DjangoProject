@@ -14,8 +14,7 @@ class Task(models.Model):
     status_choices = (
             ('Выполнено', 'Выполнено'),
             ('В процессе', 'В процессе'),
-            ('Не выполнено', 'Не выполнено'),
-            
+            ('Не выполнено', 'Не выполнено'),           
     )
     status = models.CharField(
             max_length = 20,
@@ -29,7 +28,9 @@ class Task(models.Model):
     )
     created_date = models.DateTimeField(
             default=timezone.now)
-    completed_date = models.DateField()
+    completed_date = models.DateTimeField()
 
+    def complete(self):
+        self.status = 'Выполнено'
     def __str__(self):
         return self.title
