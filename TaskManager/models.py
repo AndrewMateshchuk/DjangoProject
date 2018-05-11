@@ -28,7 +28,7 @@ class Task(models.Model):
     )
     created_date = models.DateTimeField(
             default=timezone.now)
-    completed_date = models.DateTimeField()
+    completed_date = models.DateField()
 
     def complete(self):
         self.status = 'Выполнено'
