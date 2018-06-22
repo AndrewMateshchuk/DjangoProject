@@ -1,0 +1,27 @@
+.sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+    border-right: 2px solid green
+}
+.sidebar-nav li {
+    padding: 5px;
+    border-bottom: 1px solid green;
+}
+a {
+    color: darkblue
+}
+.header {
+    border-bottom: 2px solid green;
+    text-align: right;
+    padding: 1em;
+}
+.task-title {
+    margin-top: 2em;
+    word-break: break-all;
+}
+.task-description {
+    word-break: break-all;
+    white-space: pre-wrap;
+}
+

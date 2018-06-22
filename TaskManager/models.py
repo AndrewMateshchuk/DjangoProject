@@ -1,36 +1,35 @@
 from django.db import models
-from django.utils import timezone
+from django.contrib.auth.models import User
+from django.urls import reverse
+from django.db import models
+from django.conf import settings
+import datetime
 
 
 class Task(models.Model):
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    priority_choices = (
-            ('Высокий', 'Высокий'),
-            ('Средний', 'Средний'),
-            ('Низкий', 'Низкий'),
+    title = models.CharField(max_length = 100)
+    description = models.TextField()
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
     )
-    status_choices = (
-            ('Выполнено', 'Выполнено'),
-            ('В процессе', 'В процессе'),
-            ('Не выполнено', 'Не выполнено'),           
-    )
-    status = models.CharField(
-            max_length = 20,
-            choices = status_choices,
-            default= 'Не выполнено'
+    date = models.DateField()
+    PRIORITY_HIGH = 'Высокий'
+    PRIORITY_MEDIUM = 'Средний'
+    PRIORITY_LOW = 'Низкий'
+    PRIORITY_CHOICES = (
+        (PRIORITY_HIGH, 'Высокий'),
+        (PRIORITY_MEDIUM, 'Средний'),
+        (PRIORITY_LOW, 'Низкий'),
     )
     priority = models.CharField(
-            max_length = 10,
-            choices = priority_choices,
-            default= 'Средний'
-    )
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    completed_date = models.DateField()
+        max_length=10,
+        choices=PRIORITY_CHOICES,
+        default=PRIORITY_MEDIUM)
+    status = models.BooleanField(default=False)
 
-    def complete(self):
-        self.status = 'Выполнено'
     def __str__(self):
-        return self.title
+        return '{} : {}'.format(self.title, self.date)
+
+    def get_absolute_url(self):
+        return reverse('task-detail', args=[str(self.id)])

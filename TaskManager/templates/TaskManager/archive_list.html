@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Task List</h1>
+
+    {% if archive_list %}
+    <ul>
+
+      {% for task in archive_list %}
+      <li>
+        <a href="{{ task.get_absolute_url }}">{{ task.title }}</a> 
+        {{task.date}}
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% if is_paginated %}
+    
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li><a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a></li>
+            {% endif %}
+            <span>
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+            <li><a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a></li>
+            {% endif %}
+          </ul>
+    </nav>
+  {% endif %}
+    {% else %}
+      <p>There are no tasks</p>
+    {% endif %}       
+{% endblock %}

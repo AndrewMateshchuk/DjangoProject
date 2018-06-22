@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  {% block title %}<title>Task Manager</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script>
+    function deleteTask(f) {
+    if (confirm("Вы уверены, что хотите удалить задание?")) 
+       f.submit();
+   }
+  </script>
+  <!-- Добавление дополнительного статического CSS файла -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+  <div class="header row">
+    <div class="col-sm-10"></div>
+    <div class="col-sm-2">
+        {% if not user.is_authenticated %}
+        <a href="{% url 'user-login' %}"><h4>Войти</h4></a>
+        <a href="{% url 'user-registration' %}"><h4>Регистрация</h4></a>
+        {% else %}
+        <h4>Вы в системе {{ user.username }}
+        <a href="{% url 'user-logout' %}">>Выйти</a></h4>
+        {% endif %}
+    </div>
+  </div>
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-2">
+      {% block sidebar %}
+      <ul class="sidebar-nav">
+          <li><a href="{% url 'index' %}"><h4>Задания на сегодня</h4></a></li>
+          <li><a href="{% url 'tasks' %}"><h4>Все задания</h4></a></li>
+          <li><a href="{% url 'task-add'%}"><h4>Добавить задание</h4></a></li>
+          <li><a href="{% url 'archive'%}"><h4>Архив</h4></a></li>
+      </ul>
+     {% endblock %}
+      </div>
+      <div class="col-sm-10 ">
+      {% block content %}{% endblock %}
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

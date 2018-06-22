@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Изменить задачу</h2>
+  <form class="form col-sm-4" role="form" action="." method="post">
+      {% csrf_token %}
+      {% for field in form %}
+          {% if field.errors %}
+              <div class="form-group has-error">
+                  <label class="col-sm-2 control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+                      {{ field }}
+                      <span class="form-text text-danger">
+                          {% for error in  field.errors %}{{ error }}{% endfor %}
+                      </span>
+              </div>
+          {% else %}
+              <div class="form-group">
+                  <label for="id_{{ field.name }}">{{ field.label }}</label>
+                      {{ field }}
+                  <small class="form-text text-muted">{{ field.help_text }}</small>
+              </div>
+          {% endif %}
+      {% endfor %}
+      <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-primary">Изменить</button>
+          </div>
+      </div>
+  </form>
+{% endblock %}

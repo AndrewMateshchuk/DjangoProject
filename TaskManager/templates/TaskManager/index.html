@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-sm-offset-1">
+    {% if user.is_authenticated %}
+    <h2>Задания на сегодня</h2>
+    {% if tasks_high or tasks_medium or tasks_low %}
+        <ol>
+        {% if tasks_high %}<h3>Высокий Приоритет</h3>
+        {% for task in tasks_high %}
+            <li><h4><a href="{{ task.get_absolute_url }}">{{task.title}}</a></h4></li>
+        {% endfor %}
+        <hr>
+        {% endif %}
+        {% if tasks_medium %}<h3>Средний Приоритет</h3>
+            {% for task in tasks_medium %}
+            <li><h4><a href="{{ task.get_absolute_url }}">{{task.title}}</a></h4></li>
+        {% endfor %}
+        <hr>
+        {% endif %}
+        {% if tasks_low %}<h3>Низкий Приоритет</h3>
+        {% for task in tasks_low %}
+            <li><h4><a href="{{ task.get_absolute_url }}">{{task.title}}</a></h4></li> 
+        {% endfor %}
+        <hr>
+        {% endif %}
+        </ol>
+        {% if tasks_completed %}<h3>Выполненные</h3>{% endif %}
+        <ul>
+        {% for task in tasks_completed %}
+            <li>
+                <h4><a href="{{ task.get_absolute_url }}">{{task.title}}</a></h4>
+                <p>Приоритет - {{task.priority}}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>На сегодня нет заданий</p>
+    {% endif %} 
+    {% else %}
+    <h2>Войдите чтобы добавить Задания</h2>
+    {% endif %}
+</div>
+{% endblock %}
